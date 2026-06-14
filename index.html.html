@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Durreshahwar Shabbir — Portfolio</title>
+<style>
+  :root {
+    --teal: #1A6B5A;
+    --teal-light: #2E9B7E;
+    --teal-bg: #E1F5EE;
+    --dark: #1A1A1A;
+    --gray: #555555;
+    --light-gray: #888888;
+    --bg: #F8FAFB;
+    --white: #FFFFFF;
+    --border: #E2E8F0;
+    --amber: #F59E0B;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--dark); line-height: 1.65; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26, 107, 90, 0.97);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 60px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  }
+  .nav-logo { color: white; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.5px; }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: white; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0F3D30 0%, #1A6B5A 50%, #2E9B7E 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 2rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.05) 0%, transparent 60%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero-avatar {
+    width: 120px; height: 120px; border-radius: 50%;
+    background: linear-gradient(135deg, #47C2A0, #1A6B5A);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 3rem; font-weight: 700; color: white;
+    border: 4px solid rgba(255,255,255,0.3);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+  .hero h1 { font-size: 3rem; font-weight: 700; color: white; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+  .hero-tagline { font-size: 1.2rem; color: rgba(255,255,255,0.85); margin-bottom: 0.75rem; }
+  .hero-sub { font-size: 0.95rem; color: rgba(255,255,255,0.65); margin-bottom: 2rem; }
+  .hero-badges { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+  .hero-badge { background: rgba(255,255,255,0.15); color: white; padding: 0.35rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.2); }
+  .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: white; color: var(--teal); padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+  .btn-outline { background: transparent; color: white; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; border: 2px solid rgba(255,255,255,0.4); transition: all 0.2s; }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .section-label { font-size: 0.8rem; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .section-title { font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.75rem; }
+  .section-divider { width: 50px; height: 3px; background: var(--teal); margin: 0 auto; border-radius: 2px; }
+
+  /* ABOUT */
+  .about { background: white; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .about-text p { color: var(--gray); margin-bottom: 1rem; font-size: 1rem; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+  .stat-card { background: var(--teal-bg); border-radius: 12px; padding: 1.25rem; text-align: center; }
+  .stat-val { font-size: 1.8rem; font-weight: 700; color: var(--teal); }
+  .stat-lbl { font-size: 0.8rem; color: var(--gray); margin-top: 0.25rem; }
+  .about-info { background: var(--bg); border-radius: 16px; padding: 2rem; }
+  .info-row { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+  .info-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .info-icon { width: 36px; height: 36px; background: var(--teal-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .info-label { font-size: 0.75rem; color: var(--light-gray); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .info-val { font-size: 0.9rem; color: var(--dark); font-weight: 500; }
+
+  /* SKILLS */
+  .skills { background: var(--bg); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .skill-card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 15px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+  .skill-card-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
+  .skill-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--teal-bg); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .skill-card h3 { font-size: 1rem; font-weight: 600; color: var(--dark); }
+  .skill-item { margin-bottom: 0.85rem; }
+  .skill-name { display: flex; justify-content: space-between; margin-bottom: 0.35rem; }
+  .skill-name span:first-child { font-size: 0.88rem; color: var(--gray); }
+  .skill-name span:last-child { font-size: 0.8rem; font-weight: 600; color: var(--teal); }
+  .skill-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .skill-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--teal-light)); border-radius: 3px; transition: width 1s ease; }
+
+  /* EXPERIENCE */
+  .experience { background: white; }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--teal), var(--teal-light), var(--border)); }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; }
+  .timeline-dot { position: absolute; left: -2.45rem; top: 0.35rem; width: 14px; height: 14px; border-radius: 50%; background: var(--teal); border: 3px solid white; box-shadow: 0 0 0 2px var(--teal); }
+  .timeline-card { background: var(--bg); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border); transition: box-shadow 0.2s; }
+  .timeline-card:hover { box-shadow: 0 4px 20px rgba(26,107,90,0.1); }
+  .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.35rem; }
+  .timeline-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); }
+  .timeline-date { font-size: 0.8rem; color: var(--light-gray); background: white; padding: 0.2rem 0.75rem; border-radius: 20px; border: 1px solid var(--border); white-space: nowrap; }
+  .timeline-company { font-size: 0.9rem; color: var(--teal); font-weight: 500; margin-bottom: 1rem; }
+  .timeline-bullets { list-style: none; }
+  .timeline-bullets li { font-size: 0.9rem; color: var(--gray); padding: 0.2rem 0 0.2rem 1.2rem; position: relative; }
+  .timeline-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--teal); font-size: 0.75rem; top: 0.25rem; }
+
+  /* PROJECTS */
+  .projects { background: var(--bg); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .project-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 15px rgba(0,0,0,0.06); border: 1px solid var(--border); transition: transform 0.2s, box-shadow 0.2s; }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,107,90,0.15); }
+  .project-banner { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+  .project-body { padding: 1.5rem; }
+  .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+  .project-tag { font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; }
+  .tag-teal { background: var(--teal-bg); color: var(--teal); }
+  .tag-amber { background: #FEF3C7; color: #854F0B; }
+  .tag-purple { background: #EEEDFE; color: #3C3489; }
+  .project-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.88rem; color: var(--gray); line-height: 1.6; margin-bottom: 1rem; }
+  .project-metrics { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .project-metric { text-align: center; }
+  .project-metric-val { font-size: 1.1rem; font-weight: 700; color: var(--teal); }
+  .project-metric-lbl { font-size: 0.72rem; color: var(--light-gray); }
+
+  /* CERTIFICATIONS */
+  .certifications { background: white; }
+  .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .cert-card { background: var(--bg); border-radius: 12px; padding: 1.25rem; border: 1px solid var(--border); display: flex; gap: 0.75rem; align-items: flex-start; }
+  .cert-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .cert-name { font-size: 0.9rem; font-weight: 600; color: var(--dark); margin-bottom: 0.25rem; }
+  .cert-org { font-size: 0.8rem; color: var(--light-gray); }
+
+  /* CONTACT */
+  .contact { background: linear-gradient(135deg, #0F3D30 0%, #1A6B5A 100%); }
+  .contact .section-label { color: rgba(255,255,255,0.6); }
+  .contact .section-title { color: white; }
+  .contact .section-divider { background: rgba(255,255,255,0.3); }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .contact-card { background: rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; text-align: center; border: 1px solid rgba(255,255,255,0.15); transition: background 0.2s; }
+  .contact-card:hover { background: rgba(255,255,255,0.18); }
+  .contact-card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .contact-card h4 { color: rgba(255,255,255,0.7); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+  .contact-card a, .contact-card p { color: white; font-size: 0.92rem; font-weight: 500; text-decoration: none; word-break: break-all; }
+  .contact-card a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer { background: #0A2820; text-align: center; padding: 1.5rem; }
+  footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DS</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-avatar">D</div>
+    <h1>Durreshahwar Shabbir</h1>
+    <p class="hero-tagline">Business Development & Data Analytics Professional</p>
+    <p class="hero-sub">MS Business Analytics @ FAST NUCES · JazzCash Alumni · Islamabad, Pakistan</p>
+    <div class="hero-badges">
+      <span class="hero-badge">📊 Data Analytics</span>
+      <span class="hero-badge">💳 Fintech</span>
+      <span class="hero-badge">🔍 Fraud Detection</span>
+      <span class="hero-badge">🤝 Business Development</span>
+      <span class="hero-badge">📈 Market Research</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Who I Am</p>
+      <h2 class="section-title">About Me</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Business Development and Data Analytics professional based in Islamabad, Pakistan — currently completing my MS in Business Analytics at FAST NUCES while working as Business Development Manager at NCRA UAV Dependability Lab.</p>
+        <p>My background spans fintech operations at Mobilink Microfinance Bank (JazzCash), strategic partnership analysis, and machine learning-based fraud detection research. I bridge the gap between data and business strategy.</p>
+        <p>I'm actively seeking analyst, business development, or fraud monitoring roles where I can bring analytical rigour and commercial awareness together.</p>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-val">500+</div>
+            <div class="stat-lbl">Client Interactions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">90%+</div>
+            <div class="stat-lbl">ML Model Accuracy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">3</div>
+            <div class="stat-lbl">Internships & Roles</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">1st</div>
+            <div class="stat-lbl">Case Competition Rank</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-info">
+        <div class="info-row">
+          <div class="info-icon">🎓</div>
+          <div>
+            <div class="info-label">Education</div>
+            <div class="info-val">MS Business Analytics · FAST NUCES</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-val">Islamabad, Pakistan</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">💼</div>
+          <div>
+            <div class="info-label">Current Role</div>
+            <div class="info-val">BD Manager · NCRA UAV Dependability Lab</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🏦</div>
+          <div>
+            <div class="info-label">Fintech Experience</div>
+            <div class="info-val">Mobilink Microfinance Bank (JazzCash)</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🔍</div>
+          <div>
+            <div class="info-label">Open To</div>
+            <div class="info-val">Analyst · BD · Fraud Monitoring · Remote</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🏆</div>
+          <div>
+            <div class="info-label">Achievement</div>
+            <div class="info-val">1st Rank · Ripah University Case Competition</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">What I Know</p>
+      <h2 class="section-title">Skills & Tools</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">🐍</div>
+          <h3>Programming & Data</h3>
+        </div>
+        <div class="skill-item"><div class="skill-name"><span>Python (Pandas, NumPy)</span><span>75%</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><div class="skill-name"><span>SQL</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><div class="skill-name"><span>Scikit-learn (ML)</span><span>65%</span></div><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">📊</div>
+          <h3>Business Intelligence</h3>
+        </div>
+        <div class="skill-item"><div class="skill-name"><span>Power BI</span><span>75%</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><div class="skill-name"><span>Advanced Excel</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-item"><div class="skill-name"><span>Google Sheets</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">💳</div>
+          <h3>Fintech Domain</h3>
+        </div>
+        <div class="skill-item"><div class="skill-name"><span>AML/KYC Frameworks</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><div class="skill-name"><span>Digital Wallets (IBFT, RAAST)</span><span>75%</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><div class="skill-name"><span>Fraud Pattern Detection</span><span>70%</span></div><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-header">
+          <div class="skill-icon">🤝</div>
+          <h3>Business Skills</h3>
+        </div>
+        <div class="skill-item"><div class="skill-name"><span>Business Development</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+        <div class="skill-item"><div class="skill-name"><span>Market Research</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><div class="skill-name"><span>Stakeholder Management</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">My Journey</p>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div class="timeline-title">Business Development Manager</div>
+            <div class="timeline-date">Oct 2025 – Present</div>
+          </div>
+          <div class="timeline-company">NCRA UAV Dependability Lab · Islamabad</div>
+          <ul class="timeline-bullets">
+            <li>Manage end-to-end execution of concurrent projects, translating briefs into structured workflows and deliverables</li>
+            <li>Track commercial pipeline KPIs and deliver performance reports for senior management</li>
+            <li>Drive stakeholder outreach across research, industry, and innovation partners</li>
+            <li>Identify process gaps and contribute feedback to improve operational efficiency</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div class="timeline-title">Business Banking Intern</div>
+            <div class="timeline-date">Sep 2024 – Dec 2024</div>
+          </div>
+          <div class="timeline-company">Mobilink Microfinance Bank (JazzCash) · Islamabad</div>
+          <ul class="timeline-bullets">
+            <li>Operated within Pakistan's largest telecom-linked digital financial services platform</li>
+            <li>Reduced churn by 15% through data-backed segmentation of high-risk accounts</li>
+            <li>Conducted 500+ client interactions contributing to 10% increase in qualified leads</li>
+            <li>Improved outreach efficiency by 40% through structured product knowledge materials</li>
+            <li>Gained direct exposure to IBFT, AML/KYC, mobile wallets, and digital transaction workflows</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <div class="timeline-title">Finance Intern</div>
+            <div class="timeline-date">Apr 2023 – Aug 2023</div>
+          </div>
+          <div class="timeline-company">Zeus Private Limited · Islamabad</div>
+          <ul class="timeline-bullets">
+            <li>Improved financial reporting accuracy by 20% through structured data analysis</li>
+            <li>Prepared market analysis reports and audit-ready financial documentation</li>
+            <li>Applied Excel and QuickBooks for reconciliation and data aggregation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">What I've Built</p>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-banner" style="background: linear-gradient(135deg, #0F3D30, #2E9B7E);">🌐</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag tag-teal">Strategic Analysis</span>
+            <span class="project-tag tag-teal">Fintech</span>
+            <span class="project-tag tag-amber">Market Research</span>
+          </div>
+          <div class="project-title">Jazz & Beeline Strategic Partnership Analysis</div>
+          <div class="project-desc">Developed a cross-border digital services expansion strategy within the VEON ecosystem. Designed a 12-month go-to-market roadmap, KPI framework, and risk assessment across 3 revenue verticals.</div>
+          <div class="project-metrics">
+            <div class="project-metric"><div class="project-metric-val">$2.1B</div><div class="project-metric-lbl">Market Opportunity</div></div>
+            <div class="project-metric"><div class="project-metric-val">12M</div><div class="project-metric-lbl">Roadmap</div></div>
+            <div class="project-metric"><div class="project-metric-val">3</div><div class="project-metric-lbl">Verticals</div></div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag tag-teal">SQL</span>
+            <span class="project-tag tag-teal">Excel</span>
+            <span class="project-tag tag-teal">Power BI</span>
+            <span class="project-tag tag-amber">VEON Ecosystem</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-banner" style="background: linear-gradient(135deg, #1e3a5f, #2563EB);">🔍</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag tag-purple">Machine Learning</span>
+            <span class="project-tag tag-teal">Fraud Detection</span>
+          </div>
+          <div class="project-title">ML-Based Credit Card Fraud Detection System</div>
+          <div class="project-desc">Built an end-to-end fraud detection model using Logistic Regression on the Kaggle credit card dataset. Applied feature engineering and imbalanced dataset techniques to classify fraudulent transactions in real time.</div>
+          <div class="project-metrics">
+            <div class="project-metric"><div class="project-metric-val">90%+</div><div class="project-metric-lbl">Accuracy</div></div>
+            <div class="project-metric"><div class="project-metric-val">284K</div><div class="project-metric-lbl">Transactions</div></div>
+            <div class="project-metric"><div class="project-metric-val">LR</div><div class="project-metric-lbl">Algorithm</div></div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag tag-purple">Python</span>
+            <span class="project-tag tag-purple">Scikit-learn</span>
+            <span class="project-tag tag-purple">Pandas</span>
+            <span class="project-tag tag-purple">NumPy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-banner" style="background: linear-gradient(135deg, #7C2D12, #EA580C);">📊</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag tag-amber">Business Intelligence</span>
+            <span class="project-tag tag-teal">Analytics</span>
+          </div>
+          <div class="project-title">MS Research: AI-Driven Business Analytics</div>
+          <div class="project-desc">Ongoing MS research applying Python and statistical modelling to build data pipelines and explore pattern detection in structured datasets. Focus on rule-based and ML classification for anomaly detection.</div>
+          <div class="project-metrics">
+            <div class="project-metric"><div class="project-metric-val">ML</div><div class="project-metric-lbl">Approach</div></div>
+            <div class="project-metric"><div class="project-metric-val">Live</div><div class="project-metric-lbl">Status</div></div>
+            <div class="project-metric"><div class="project-metric-val">FAST</div><div class="project-metric-lbl">Institution</div></div>
+          </div>
+          <div class="project-tags">
+            <span class="project-tag tag-purple">Python</span>
+            <span class="project-tag tag-purple">Scikit-learn</span>
+            <span class="project-tag tag-amber">Anomaly Detection</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certifications">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Credentials</p>
+      <h2 class="section-title">Certifications & Achievements</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card"><div class="cert-icon">🏆</div><div><div class="cert-name">1st Rank — Case Competition</div><div class="cert-org">Ripah University Public Policy · Strategic Analysis</div></div></div>
+      <div class="cert-card"><div class="cert-icon">🇺🇸</div><div><div class="cert-name">Lincoln Corner Pakistan</div><div class="cert-org">U.S. Embassy · Professional Engagement Programme</div></div></div>
+      <div class="cert-card"><div class="cert-icon">📋</div><div><div class="cert-name">ISO 9001:2015</div><div class="cert-org">Quality Management Systems Awareness</div></div></div>
+      <div class="cert-card"><div class="cert-icon">📊</div><div><div class="cert-name">Data Analysis Using Excel</div><div class="cert-org">Certified · Data Cleaning, Aggregation & Visualisation</div></div></div>
+      <div class="cert-card"><div class="cert-icon">🤝</div><div><div class="cert-name">Community Volunteer</div><div class="cert-org">NUML CSR Society · Turkey Earthquake Relief</div></div></div>
+      <div class="cert-card"><div class="cert-icon">🎓</div><div><div class="cert-name">MS Business Analytics</div><div class="cert-org">FAST NUCES Islamabad · In Progress 2025–2027</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Let's Connect</p>
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="section-divider"></div>
+      <p style="color:rgba(255,255,255,0.7);margin-top:1rem;font-size:0.95rem">I'm actively looking for analyst, BD, or fintech roles in Islamabad or remote. Let's talk!</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-card-icon">📧</div>
+        <h4>Email</h4>
+        <a href="mailto:durreshawarshabbir9@gmail.com">durreshawarshabbir9@gmail.com</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">💼</div>
+        <h4>LinkedIn</h4>
+        <a href="https://linkedin.com/in/durre-shahwar-shabbir" target="_blank">linkedin.com/in/durre-shahwar-shabbir</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">📱</div>
+        <h4>Phone</h4>
+        <p>0334-0555457</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">📍</div>
+        <h4>Location</h4>
+        <p>Islamabad, Pakistan · Open to Remote</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Durreshahwar Shabbir · Built with purpose · Islamabad, Pakistan</p>
+</footer>
+
+<script>
+  // Animate skill bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.style.width;
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skill-card').forEach(card => observer.observe(card));
+
+  // Smooth nav highlight
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollY = window.scrollY;
+    sections.forEach(section => {
+      const top = section.offsetTop - 80;
+      const height = section.offsetHeight;
+      const id = section.getAttribute('id');
+      const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+      if (link) {
+        if (scrollY >= top && scrollY < top + height) {
+          link.style.color = 'white';
+          link.style.fontWeight = '700';
+        } else {
+          link.style.color = 'rgba(255,255,255,0.85)';
+          link.style.fontWeight = '500';
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
